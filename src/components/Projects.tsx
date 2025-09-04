@@ -1,6 +1,16 @@
 import React from 'react';
 
-const Projects = () => {
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  link?: string;
+  category: string;
+  featured?: boolean;
+}
+
+const Projects: React.FC = () => {
   // Icônes SVG inline
   const ArrowTopRightIcon = () => (
     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -14,7 +24,7 @@ const Projects = () => {
     </svg>
   );
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: "DjinPay",
       description: "Système complet de cartes prépayées avec gestion des transactions, recharges et paiements sécurisés.",
@@ -64,12 +74,17 @@ const Projects = () => {
     }
   ];
 
-  const categories = ["Tous", "Fintech", "AI/ML", "Web Development", "E-commerce", "Government", "Portfolio"];
-  const [activeCategory, setActiveCategory] = React.useState("Tous");
+  const categories: string[] = ["Tous", "Fintech", "AI/ML", "Web Development", "E-commerce", "Government", "Portfolio"];
+  const [activeCategory, setActiveCategory] = React.useState<string>("Tous");
 
-  const filteredProjects = activeCategory === "Tous" 
+  const filteredProjects: Project[] = activeCategory === "Tous" 
     ? projects 
     : projects.filter(project => project.category === activeCategory);
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>): void => {
+    const target = e.currentTarget;
+    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDE2NVYxMzVIMTc1VjEyNVoiIGZpbGw9IiM5Q0EzQUYiLz4KPHA+Tm8gSW1hZ2U8L3A+Cjwvc3ZnPgo=';
+  };
 
   return (
     <section id="projets" className="py-12 sm:py-16 lg:py-20 bg-gray-50">
@@ -87,7 +102,7 @@ const Projects = () => {
 
           {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-2 px-4 mb-8 sm:gap-3 sm:mb-12">
-            {categories.map((category) => (
+            {categories.map((category: string) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
@@ -96,6 +111,7 @@ const Projects = () => {
                     ? 'bg-blue-600 text-white shadow-lg'
                     : 'bg-white text-gray-600 hover:bg-gray-100'
                 }`}
+                type="button"
               >
                 {category}
               </button>
@@ -104,7 +120,7 @@ const Projects = () => {
 
           {/* Projects Grid */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
-            {filteredProjects.map((project, index) => (
+            {filteredProjects.map((project: Project, index: number) => (
               <div
                 key={index}
                 className={`bg-white rounded-xl shadow-lg overflow-hidden group cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-xl ${
@@ -116,9 +132,7 @@ const Projects = () => {
                     src={project.image}
                     alt={project.title}
                     className="object-cover w-full h-48 transition-transform duration-300 sm:h-56 group-hover:scale-110"
-                    onError={(e) => {
-                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDE2NVYxMzVIMTc1VjEyNVoiIGZpbGw9IiM5Q0EzQUYiLz4KPHA+Tm8gSW1hZ2U8L3A+Cjwvc3ZnPgo=';
-                    }}
+                    onError={handleImageError}
                   />
                   <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
                     <span className="px-2 py-1 text-xs font-medium text-white bg-blue-600 rounded-full sm:px-3">
@@ -144,7 +158,7 @@ const Projects = () => {
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
-                    {project.technologies.map((tech, techIndex) => (
+                    {project.technologies.map((tech: string, techIndex: number) => (
                       <span
                         key={techIndex}
                         className="px-2 py-1 text-xs text-gray-700 break-words bg-gray-100 rounded-full sm:px-3 sm:text-sm"
@@ -166,7 +180,10 @@ const Projects = () => {
                         Voir le projet
                       </a>
                     )}
-                    <button className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 bg-gray-100 rounded-lg hover:bg-gray-200 sm:text-base">
+                    <button 
+                      type="button"
+                      className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 bg-gray-100 rounded-lg hover:bg-gray-200 sm:text-base"
+                    >
                       <CodeBracketIcon />
                       Détails
                     </button>
