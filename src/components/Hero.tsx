@@ -175,44 +175,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Custom Animations CSS */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(10deg); }
-        }
-        
-        @keyframes float-delayed {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-30px) rotate(-10deg); }
-        }
-        
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.8; }
-        }
-        
-        @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        
-        @keyframes drift {
-          0% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { transform: translateY(-100vh) translateX(50px) rotate(360deg); opacity: 0; }
-        }
-        
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-float-delayed { animation: float-delayed 8s ease-in-out infinite; }
-        .animate-pulse-slow { animation: pulse-slow 4s ease-in-out infinite; }
-        .animate-gradient-x { 
-          animation: gradient-x 3s ease infinite;
-          background-size: 200% 200%;
-        }
-        .animate-drift { animation: drift linear infinite; }
-      `}</style>
     </section>
   );
 };
