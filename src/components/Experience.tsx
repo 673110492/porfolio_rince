@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import { Calendar, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 
-const Experience = () => {
-  const [expandedExperience, setExpandedExperience] = useState(null);
+interface ExperienceItem {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  type: string;
+  description: string;
+  technologies: string[];
+  website?: string;
+  current?: boolean;
+  details?: string[];
+}
 
-  const experiences = [
+const Experience: React.FC = () => {
+  const [expandedExperience, setExpandedExperience] = useState<number | null>(null);
+
+  const experiences: ExperienceItem[] = [
     {
       title: "Développeur Full Stack",
       company: "DOOPINET LLC",
@@ -82,7 +95,7 @@ const Experience = () => {
     }
   ];
 
-  const toggleExpanded = (index) => {
+  const toggleExpanded = (index: number): void => {
     setExpandedExperience(expandedExperience === index ? null : index);
   };
 
@@ -101,7 +114,7 @@ const Experience = () => {
           </div>
 
           <div className="space-y-6 sm:space-y-8">
-            {experiences.map((exp, index) => (
+            {experiences.map((exp: ExperienceItem, index: number) => (
               <div
                 key={index}
                 className={`bg-white rounded-xl shadow-lg p-6 sm:p-8 transition-all duration-500 hover:shadow-xl border ${
@@ -145,6 +158,9 @@ const Experience = () => {
                       <button
                         onClick={() => toggleExpanded(index)}
                         className="flex items-center mb-4 text-sm font-medium text-blue-600 transition-colors hover:text-blue-700 sm:text-base"
+                        type="button"
+                        aria-expanded={expandedExperience === index}
+                        aria-controls={`details-${index}`}
                       >
                         {expandedExperience === index ? (
                           <>
@@ -161,10 +177,13 @@ const Experience = () => {
                     )}
 
                     {exp.details && expandedExperience === index && (
-                      <div className="p-4 mb-4 rounded-lg bg-gray-50">
+                      <div 
+                        id={`details-${index}`}
+                        className="p-4 mb-4 rounded-lg bg-gray-50"
+                      >
                         <h4 className="mb-3 text-sm font-medium text-gray-900 sm:text-base">Réalisations clés :</h4>
                         <ul className="space-y-2 text-sm text-gray-600 list-disc list-inside sm:text-base">
-                          {exp.details.map((detail, detailIndex) => (
+                          {exp.details.map((detail: string, detailIndex: number) => (
                             <li key={detailIndex} className="break-words">{detail}</li>
                           ))}
                         </ul>
@@ -172,7 +191,7 @@ const Experience = () => {
                     )}
 
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {exp.technologies.map((tech, techIndex) => (
+                      {exp.technologies.map((tech: string, techIndex: number) => (
                         <span
                           key={techIndex}
                           className="px-2 py-1 text-xs font-medium text-blue-800 break-words bg-blue-100 rounded-full sm:px-3 sm:text-sm"
