@@ -46,7 +46,7 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="flex items-baseline ml-10 space-x-8">
               {navItems.map((item) => (
                 <button
                   key={item.href}
@@ -70,9 +70,9 @@ const Header = () => {
               }`}
             >
               {isOpen ? (
-                <XMarkIcon className="block h-6 w-6" />
+                <XMarkIcon className="block w-6 h-6" />
               ) : (
-                <Bars3Icon className="block h-6 w-6" />
+                <Bars3Icon className="block w-6 h-6" />
               )}
             </button>
           </div>
@@ -80,13 +80,13 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg border-t">
+          <div className="absolute left-0 right-0 bg-white border-t shadow-lg md:hidden top-16">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => scrollToSection(item.href)}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md w-full text-left transition-colors"
+                  className="block w-full px-3 py-2 text-base font-medium text-left text-gray-700 transition-colors rounded-md hover:text-primary-600 hover:bg-gray-50"
                 >
                   {item.label}
                 </button>
